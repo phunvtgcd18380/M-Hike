@@ -7,9 +7,9 @@
     tools:context=".MainActivity">
 
     <ListView
-        android:id="@+id/ListView"
-        android:layout_width="414dp"
-        android:layout_height="719dp"
+        android:id="@+id/ListViewAllHike"
+        android:layout_width="408dp"
+        android:layout_height="810dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
@@ -30,6 +30,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ListView"
         app:layout_constraintVertical_bias="0.431" />
 </androidx.constraintlayout.widget.ConstraintLayout>

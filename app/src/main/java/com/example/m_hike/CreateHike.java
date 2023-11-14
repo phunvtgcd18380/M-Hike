@@ -4,24 +4,92 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.EditText;
 
 public class CreateHike extends AppCompatActivity {
 
+    private String parking;
     private DatePickerDialog datePickerDialog;
-    private Button dateButton;
+    private Button dateButton, saveButton;
+
+    private CheckBox checkBoxParking;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_hike);
         initDatePicker();
-        dateButton = findViewById(R.id.Date);
+        dateButton = (Button) findViewById(R.id.dateButton);
         dateButton.setText(getTodayDate());
+        saveData();
     }
+
+    private void saveData(){
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        checkBoxParking = findViewById(R.id.checkBoxParking);
+        parking = "false";
+        boolean pass = true;
+        if(checkBoxParking.isChecked()) {
+            parking = "true";
+        }
+
+
+        EditText nameEditText = (EditText)  findViewById(R.id.editTextName);
+        EditText locationEditText = (EditText)  findViewById(R.id.editTextLocation);
+        EditText lengthOfHikeEditText = (EditText)  findViewById(R.id.editTextLengthOfHike);
+        EditText levelOfDifficultEditText = (EditText)  findViewById(R.id.editTextLevelOfDifficult);
+        EditText descriptionEditText = (EditText)  findViewById(R.id.editTextDescription);
+
+            saveButton = (Button) findViewById(R.id.save);
+
+            saveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String name = nameEditText.getText().toString();
+                    String location = locationEditText.getText().toString();
+                    String dateOfHike = dateButton.getText().toString();
+                    String lengthOfHike = lengthOfHikeEditText.getText().toString();
+                    String levelOfDifficult = levelOfDifficultEditText.getText().toString();
+                    String description = descriptionEditText.getText().toString();
+
+                    boolean pass = true;
+                    if (name.trim().equals(""))
+                    {
+                        nameEditText.setError( "name is required!" );
+                        pass = false;
+                    }
+                    if (location.trim().equals(""))
+                    {
+                        locationEditText.setError( "location is required!" );
+                        pass = false;
+                    }
+                    if (lengthOfHike.trim().equals(""))
+                    {
+                        lengthOfHikeEditText.setError( "length Of Hike is required!" );
+                        pass = false;
+                    }
+                    if (levelOfDifficult.trim().equals(""))
+                    {
+                        levelOfDifficultEditText.setError( "level Of Difficult is required!" );
+                        pass = false;
+                    }
+                    if(pass == true)
+                    {
+                        finish();
+                        db.insertData(name, location, dateOfHike, parking, lengthOfHike, levelOfDifficult, description);
+                    }
+                }
+            });
+    }
+
     private String getTodayDate()
     {
         Calendar cal = Calendar.getInstance();

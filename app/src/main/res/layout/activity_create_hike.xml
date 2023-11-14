@@ -164,7 +164,7 @@
 
     <Button
         android:gravity="center"
-        android:id="@+id/Date"
+        android:id="@+id/dateButton"
         style="?android:spinnerStyle"
         android:layout_width="263dp"
         android:layout_height="53dp"
