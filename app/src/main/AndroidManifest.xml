@@ -13,17 +13,26 @@
         android:theme="@style/Theme.MHike"
         tools:targetApi="31">
         <activity
+            android:name=".CreateObservation"
+            android:exported="false" />
+        <activity
+            android:name=".Observation"
+            android:exported="false" />
+        <activity
+            android:name=".HikeDetail"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".CreateHike"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>
