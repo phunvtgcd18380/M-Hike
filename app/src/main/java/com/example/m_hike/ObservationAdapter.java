@@ -40,7 +40,7 @@ public class ObservationAdapter extends BaseAdapter {
 
         ObservationModel observationModel = (ObservationModel) getItem(position);
         ((TextView) viewObservation.findViewById(R.id.idObservation)).setText(String.format("ID = %d", observationModel.id));
-        ((TextView) viewObservation.findViewById(R.id.nameObservation)).setText(String.format("Hike Name : %s", observationModel.observation));
+        ((TextView) viewObservation.findViewById(R.id.nameObservation)).setText(String.format("Observation Name : %s", observationModel.observation));
         ((TextView) viewObservation.findViewById(R.id.dateTimeObservation)).setText(String.format("date %s", observationModel.dateTime));
 
         return viewObservation;

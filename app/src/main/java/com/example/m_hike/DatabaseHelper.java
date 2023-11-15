@@ -278,4 +278,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         return observationModels;
     }
+    void deleteObservationByID(long ID) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM observation_table where id = ?", new String[]{String.valueOf(ID)});
+    }
 }

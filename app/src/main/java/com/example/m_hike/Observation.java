@@ -35,14 +35,15 @@ public class Observation extends AppCompatActivity {
         ListView ListViewObservation = findViewById(R.id.ListViewObservation);
         ListViewObservation.setAdapter(customAdapter);
 
-//        ListViewObservation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent i = new Intent(MainActivity.this, HikeDetail.class);
-//                i.putExtra("id",id);
-//                startActivity(i);
-//            }
-//        });
+        ListViewObservation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                db.deleteObservationByID(id);
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+            }
+        });
 
 
 

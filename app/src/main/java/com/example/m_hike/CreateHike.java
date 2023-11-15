@@ -24,6 +24,7 @@ public class CreateHike extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_hike);
+
         initDatePicker();
         dateButton = (Button) findViewById(R.id.dateButton);
         dateButton.setText(getTodayDate());
