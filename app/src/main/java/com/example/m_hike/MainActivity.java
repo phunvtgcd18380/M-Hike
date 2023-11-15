@@ -7,13 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-    Button createButton;
+    Button createButton,searchButton;
+    EditText searchText;
     ListView listViewAllHike;
 
     @Override
@@ -41,6 +44,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+
+        searchButton = (Button) findViewById(R.id.searchButton);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchText = (EditText) findViewById(R.id.SearchText);
+                String search = searchText.getText().toString();
+
+                Intent i = new Intent(MainActivity.this, SearchHike.class);
+                i.putExtra("searchText",search);
+                startActivity(i);
+            }
+        });
+
 
         createButton = (Button) findViewById(R.id.create);
 

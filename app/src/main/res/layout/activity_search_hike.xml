@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".SearchHike">
 
     <ListView
-        android:id="@+id/ListViewAllHike"
+        android:id="@+id/ListViewSearchHike"
         android:layout_width="406dp"
         android:layout_height="591dp"
         android:layout_marginStart="1dp"
@@ -22,39 +22,14 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/create"
+        android:id="@+id/Back"
         android:layout_width="187dp"
         android:layout_height="58dp"
         android:layout_marginBottom="52dp"
-        android:text="Create"
+        android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/searchButton"
-        android:layout_width="187dp"
-        android:layout_height="58dp"
-        android:layout_marginBottom="156dp"
-        android:text="Search"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/SearchText"
-        app:layout_constraintVertical_bias="0.468" />
-
-    <EditText
-        android:id="@+id/SearchText"
-        android:layout_width="206dp"
-        android:layout_height="133dp"
-        android:layout_marginBottom="160dp"
-        android:ems="10"
-        android:hint="Search Text"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

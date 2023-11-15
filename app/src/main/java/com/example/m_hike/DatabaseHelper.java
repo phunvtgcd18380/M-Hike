@@ -136,6 +136,58 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         return MHIKE;
     }
+
+    public List<MHike> getData(String search){
+        String[] projection = {
+                KEY_ID,
+                DatabaseHelper.KEY_NAME,
+                DatabaseHelper.KEY_DESCRIPTION,
+                DatabaseHelper.KEY_LENGTH_OF_HIKE,
+                DatabaseHelper.KEY_DATE_OF_HIKE,
+                DatabaseHelper.KEY_LOCATION,
+                DatabaseHelper.KEY_PARKING_AVAILABLE,
+                DatabaseHelper.KEY_LEVEL_OF_DIFFICULT
+        };
+
+// Filter results WHERE "title" = 'My Title'
+//        String selection = "(" + DatabaseHelper.KEY_NAME + " LIKE ?) or  " + "(" +DatabaseHelper.KEY_LOCATION + " = ?) or  " + "(" +DatabaseHelper.KEY_LENGTH_OF_HIKE + " LIKE ?) or " + " ( " +DatabaseHelper.KEY_DATE_OF_HIKE + " LIKE ? )";
+//       String[] selectionArgs = { search };
+
+// How you want the results sorted in the resulting Cursor
+//        String sortOrder =
+
+        Cursor cursor =  db.query(
+                DatabaseHelper.TABLE_NAME,   // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                null,              // The columns for the WHERE clause
+                null,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                null               // The sort order
+        );
+        cursor.moveToFirst();
+        List<MHike> MHIKE = new ArrayList<>();
+        while(!cursor.isAfterLast()) {
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(KEY_NAME));
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ID));
+            String  location= cursor.getString(cursor.getColumnIndexOrThrow(KEY_LOCATION));
+            String dateOfHike = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DATE_OF_HIKE));
+            String parkingAvailable = cursor.getString(cursor.getColumnIndexOrThrow(KEY_PARKING_AVAILABLE));
+            String lengthOfHike = cursor.getString(cursor.getColumnIndexOrThrow(KEY_LENGTH_OF_HIKE));
+            String levelOfDifficult = cursor.getString(cursor.getColumnIndexOrThrow(KEY_LEVEL_OF_DIFFICULT));
+            String description = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DESCRIPTION));
+
+
+
+            if(name.toUpperCase().contains(search.toUpperCase()) || location.toUpperCase().contains(search.toUpperCase()) ||dateOfHike.toUpperCase().contains(search.toUpperCase()) ||lengthOfHike.toUpperCase().contains(search.toUpperCase())) {
+                MHIKE.add(new MHike(id, name, location, dateOfHike, parkingAvailable, lengthOfHike, levelOfDifficult, description));
+            }
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return MHIKE;
+    }
     public MHike getHikeDetailByID(long ID) {
         MHike mhike = null;
         SQLiteDatabase db = getReadableDatabase();
