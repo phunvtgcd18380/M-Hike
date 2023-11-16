@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class HikeDetail extends AppCompatActivity {
 
     private TextView name,location,dateHike,parking,hikeLength,levelDifficult,description;
-    private Button delete,observation,backHikeDetail;
+    private Button delete,observation,backHikeDetail,updateButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +70,25 @@ public class HikeDetail extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(HikeDetail.this, Observation.class);
                 i.putExtra("HikeId",id);
+                startActivity(i);
+            }
+        });
+        updateButton =  (Button) findViewById(R.id.Update);
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HikeDetail.this, UpdateMHike.class);
+                i.putExtra("id",id);
+                if(id != 0) {
+                    MHike hikeDetail = db.getHikeDetailByID(id);
+                    i.putExtra("name", hikeDetail.name);
+                    i.putExtra("location", hikeDetail.location);
+                    i.putExtra("dateOfHike", hikeDetail.dateOfHike);
+                    i.putExtra("parkingAvailable", hikeDetail.parkingAvailable);
+                    i.putExtra("lengthOfHike", hikeDetail.lengthOfHike);
+                    i.putExtra("levelOfDifficult", hikeDetail.levelOfDifficult);
+                    i.putExtra("description", hikeDetail.description);
+                }
                 startActivity(i);
             }
         });

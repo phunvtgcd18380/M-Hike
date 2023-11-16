@@ -232,6 +232,34 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return mhike;
     }
 
+    public void UpdateHikeById(long ID,String name, String location, String dateOfHike, String parkingAvailable, String lengthOfHike, String levelOfDifficult, String description) {
+        SQLiteDatabase db = getWritableDatabase();
+
+// New value for one column
+        ContentValues rowValue = new ContentValues();
+        rowValue.put(KEY_ID,ID);
+        rowValue.put(KEY_NAME,name);
+        rowValue.put(KEY_LOCATION ,location);
+        rowValue.put(KEY_DATE_OF_HIKE,dateOfHike);
+        rowValue.put(KEY_PARKING_AVAILABLE,parkingAvailable);
+        rowValue.put(KEY_LENGTH_OF_HIKE,lengthOfHike);
+        rowValue.put(KEY_LEVEL_OF_DIFFICULT,levelOfDifficult);
+        rowValue.put(KEY_DESCRIPTION,description);
+
+// Which row to update, based on the title
+        String selection = DatabaseHelper.KEY_ID + " = ?";
+        String[] selectionArgs = { ID + ""};
+
+        Log.d("HikeIdUpdate",Long.toString(ID));
+
+        int count = db.update(
+                DatabaseHelper.TABLE_NAME,
+                rowValue,
+                selection,
+                selectionArgs);
+    }
+
+
     void deleteHikeDetailByID(long ID) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM M_Hike where id = ?", new String[]{String.valueOf(ID)});
@@ -278,8 +306,69 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         return observationModels;
     }
+
+    public ObservationModel getObservationById(long id){
+        ObservationModel observationModel = null;
+
+        String[] projection = {
+                KEY_OBSERVATION_ID,
+                DatabaseHelper.KEY_OBSERVATION,
+                DatabaseHelper.KEY_OBSERVATION_TIME,
+                DatabaseHelper.KEY_HIKE_ID,
+        };
+
+// Filter results WHERE "title" = 'My Title'
+        String selection = DatabaseHelper.KEY_OBSERVATION_ID + " = ?";
+        String[] selectionArgs = { id +"" };
+
+// How you want the results sorted in the resulting Cursor
+//        String sortOrder =
+
+        Cursor cursor = db.query(
+                DatabaseHelper.KEY_TABLE_OBSERVATION,   // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                null               // The sort order
+        );
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            String observation = cursor.getString(cursor.getColumnIndexOrThrow(KEY_OBSERVATION));
+            String  dateTime= cursor.getString(cursor.getColumnIndexOrThrow(KEY_OBSERVATION_TIME));
+
+            observationModel = new ObservationModel(id,observation,dateTime);
+        }
+        cursor.close();
+        return observationModel;
+    }
+
     void deleteObservationByID(long ID) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM observation_table where id = ?", new String[]{String.valueOf(ID)});
+    }
+
+    public void UpdateObservationById(long ID, String observation, String time, long HikeId) {
+        SQLiteDatabase db = getWritableDatabase();
+
+// New value for one column
+        ContentValues rowValue = new ContentValues();
+        rowValue.put(KEY_OBSERVATION,observation);
+        rowValue.put(KEY_OBSERVATION_TIME ,time);
+        rowValue.put(KEY_HIKE_ID,HikeId);
+
+        Log.d("table: " ,rowValue.toString());
+
+// Which row to update, based on the title
+        String selection = DatabaseHelper.KEY_OBSERVATION_ID + " = ?";
+        String[] selectionArgs = { ID + ""};
+
+        int count = db.update(
+                DatabaseHelper.KEY_TABLE_OBSERVATION,
+                rowValue,
+                selection,
+                selectionArgs);
     }
 }

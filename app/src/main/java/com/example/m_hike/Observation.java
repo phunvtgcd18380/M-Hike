@@ -37,11 +37,18 @@ public class Observation extends AppCompatActivity {
 
         ListViewObservation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                db.deleteObservationByID(id);
-                Intent intent = getIntent();
-                finish();
-                startActivity(intent);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long observationId) {
+                Intent i = new Intent(Observation.this,UpdateObservation.class);
+
+                i.putExtra("ObservationId",observationId);
+                i.putExtra("HikeId",id);
+
+                if(observationId != 0) {
+                   ObservationModel observationModel = db.getObservationById(observationId);
+                   i.putExtra("observation",observationModel.observation);
+                   i.putExtra("dateTime",observationModel.dateTime);
+                }
+                startActivity(i);
             }
         });
 
