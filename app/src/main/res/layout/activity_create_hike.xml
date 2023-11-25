@@ -31,8 +31,8 @@
         app:layout_constraintVertical_bias="0.963" />
 
     <ScrollView
-        android:layout_width="422dp"
-        android:layout_height="700dp"
+        android:layout_width="409dp"
+        android:layout_height="464dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -42,7 +42,7 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+                android:layout_width="408dp"
                 android:layout_height="match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
